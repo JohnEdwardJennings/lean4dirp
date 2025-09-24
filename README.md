@@ -1,6 +1,7 @@
 # Getting Started
 * Follow the three steps at [https://lean-lang.org/install/] to install VSCode (if you haven't already) and Lean 4.
 * If you haven't already, create a GitHub account by going to [https://github.com/] and clicking "Sign Up" in the top right corner.
+* Send your GitHub username in the `the-lean4-language` channel of the DiRP Discord (ping `@John Jennings`).
 * Create an SSH key and add it to GitHub. See [https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account] for instructions.
 * Run the following terminal commands in order:
 ```
