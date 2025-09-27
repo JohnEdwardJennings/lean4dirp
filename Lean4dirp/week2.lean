@@ -23,12 +23,12 @@ def one_sub : ℤ → ℤ := sorry
 #eval one_sub (-1)  /- 2 -/
 #eval one_sub 5  /- -4 -/
 
-/- Bonus: can you define the first two functions above without using `fun`? -/
+/- Bonus: can you define the first and third functions above without using `fun`? -/
 
 /- Define a function `applyAndAdd` that takes a function and two natural numbers,
 applies the function to the first natural number, and adds the result to the second
 natural number.
-No stub is provided; you must state the type of `f` yourself. -/
+No stub is provided; you must state the type of `applyAndAdd` yourself. -/
 
 #eval applyAndAdd (fun n => 3 * n ^ 2) 2 5 /- 17 -/
 
