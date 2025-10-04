@@ -4,7 +4,7 @@
 An **equivalence relation** is a relation (predicate of two variables)
 satisfying the properties of reflexivity, symmetry, and transitivity.
 
-The first argument `f` to the constructor (`mk`) is the relation itself,
+The first argument `R` to the constructor (`mk`) is the relation itself,
 expressed as a function `ρ → ρ → Prop`.
 
 The remaining arguments are dependent on the first one. They assert that:
@@ -15,10 +15,10 @@ The remaining arguments are dependent on the first one. They assert that:
 -/
 inductive EquivalenceRelation (ρ : Type) where
     | mk
-        (f : ρ → ρ → Prop)
-        (refl : ∀ r : ρ, f r r)
-        (symm : ∀ r s : ρ, f r s → f s r)
-        (trans : ∀ r s t : ρ, f r s → f s t → f r t)
+        (R : ρ → ρ → Prop)
+        (refl : ∀ x : ρ, R x x)
+        (symm : ∀ x y : ρ, R x y → R y x)
+        (trans : ∀ x y z : ρ, R x y → R y z → R x z)
         : EquivalenceRelation ρ
 
 /- Note: to type `ρ`, begin typing "\rho"; to type `∀`, begin typing "\forall".
@@ -29,9 +29,9 @@ often what follows the backslash is the same as it is in LaTeX. -/
 def EqEquiv {α : Type} : EquivalenceRelation α :=
     EquivalenceRelation.mk
         (Eq (α := α))
-        (fun r => Eq.refl r)
-        (fun r _ hrs => Eq.subst (motive := fun x => Eq x r) hrs (Eq.refl r))
-        (fun _ _ _ hrs hst => Eq.subst hst hrs)
+        (fun x => Eq.refl x)
+        (fun x _ hxy => Eq.subst (motive := fun a => Eq a x) hxy (Eq.refl x))
+        (fun _ _ _ hxy hyz => Eq.subst hyz hxy)
 
 /- Notes about the above:
 * `Eq` is a dependent inductive type, with a type argument and two arguments of that type.
@@ -72,11 +72,11 @@ inductive SumProd (α β γ : Type) where
   | cons1 (a : α) : SumProd α β γ
   | cons2 (b : β) (c : γ) : SumProd α β γ
 
-/-- There is a function from `SumProd α β γ` to `Sum α (Prod β γ)`. -/
+/-- Define a function from `SumProd α β γ` to `Sum α (Prod β γ)`. -/
 noncomputable def forward {α β γ : Type} : SumProd α β γ → Sum α (Prod β γ) :=
     sorry
 
-/-- There is a function from `Sum α (Prod β γ)` to `SumProd α β γ`. -/
+/-- Define a function from `Sum α (Prod β γ)` to `SumProd α β γ`. -/
 noncomputable def backward {α β γ : Type} : Sum α (Prod β γ) → SumProd α β γ :=
     sorry
 
