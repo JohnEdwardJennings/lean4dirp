@@ -34,7 +34,7 @@ def EqEquiv {α : Type} : EquivalenceRelation α :=
         (fun _ _ _ hxy hyz => Eq.subst hyz hxy)
 
 /- Notes about the above:
-* `Eq` is a dependent inductive type, with a type argument and two arguments of that type.
+* `Eq` is a dependent inductive family (see Theorem Proving in Lean 4, section 7.7).
 * `Eq.refl` is the unique constructor of `Eq`.
 * `Eq.subst` is a simplified version of the recursor of `Eq`.
 To see how these functions are defined, you can always write
@@ -44,7 +44,7 @@ To see how these functions are defined, you can always write
 #check Eq.refl
 #check Eq.subst
 
-/-- In the exercise, we will construct an equivalence relation based on a function `f`:
+/-- In this exercise, we will construct an equivalence relation based on a function `f`:
 two elements `a, b` of `α` are considered *related*, or equivalent, iff `f a = f b`.
 Make sure you understand the previous construction, as this one should
 be quite similar. In fact, the above construction is essentially `equivOf id`
@@ -86,3 +86,26 @@ we can say that `SumProd α β γ` is equivalent to `Sum α (Prod β γ)`.
 In fact, every GADT is equivalent to some (possibly empty) nested sum of
 (possibly empty) nested products.
 -/
+
+/- Part 3: Natural Numbers. -/
+
+/-- A definition of the natural numbers from scratch. -/
+inductive N
+  | zero : N
+  | succ (n : N) : N
+
+/-- Multiply an `N` by two. -/
+def N.mul_two : N → N := sorry
+
+#reduce N.mul_two (N.zero) -- N.zero
+#reduce N.mul_two (N.zero).succ -- N.zero.succ.succ
+#reduce N.mul_two (N.zero).succ.succ -- N.zero.succ.succ.succ.succ
+
+/-- Divide an `N` by two, rounding down if necessary. -/
+def N.div_two : N → N := sorry
+
+#reduce N.div_two (N.zero) -- N.zero
+#reduce N.div_two (N.zero).succ -- N.zero
+#reduce N.div_two (N.zero).succ.succ -- N.zero.succ
+#reduce N.div_two (N.zero).succ.succ.succ -- N.zero.succ
+#reduce N.div_two (N.zero).succ.succ.succ.succ -- N.zero.succ.succ
