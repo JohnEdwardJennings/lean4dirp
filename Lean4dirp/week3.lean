@@ -10,7 +10,8 @@ expressed as a function `ρ → ρ → Prop`.
 The remaining arguments are dependent on the first one. They assert that:
 * the relation is *reflexive*, meaning that `r` is related to itself;
 * the relation is *symmetric*, meaning if `r` is related to `s` then `s` is related to `r`;
-* the relation is *transitive*, meaning if `r` is related to `s` then `s` is related to `r`.
+* the relation is *transitive*, meaning if `r` is related to `s` and `s` to `t`,
+    then `r` is related to `t`.
 -/
 inductive EquivalenceRelation (ρ : Type) where
     | mk
