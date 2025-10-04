@@ -8,10 +8,10 @@ The first argument `R` to the constructor (`mk`) is the relation itself,
 expressed as a function `ρ → ρ → Prop`.
 
 The remaining arguments are dependent on the first one. They assert that:
-* the relation is *reflexive*, meaning that `r` is related to itself;
-* the relation is *symmetric*, meaning if `r` is related to `s` then `s` is related to `r`;
-* the relation is *transitive*, meaning if `r` is related to `s` and `s` to `t`,
-    then `r` is related to `t`.
+* the relation is *reflexive*, meaning that `x` is related to itself;
+* the relation is *symmetric*, meaning if `x` is related to `y` then `y` is related to `x`;
+* the relation is *transitive*, meaning if `x` is related to `y` and `y` to `z`,
+    then `x` is related to `z`.
 -/
 inductive EquivalenceRelation (ρ : Type) where
     | mk
