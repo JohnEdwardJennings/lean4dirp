@@ -51,10 +51,11 @@ be quite similar. In fact, the above construction is essentially `equivOf id`
 (you can `#check id` to see its definition). -/
 def equivOf {α β : Type} (f : α → β) : EquivalenceRelation α :=
     EquivalenceRelation.mk
-        sorry
-        sorry
-        sorry
-        sorry
+        (fun (a : α) (b : α) => (f a) = (f b))
+        (fun (x : α) => Eq.refl (f x))
+        (fun (x : α) (y : α) (hxy : (f x) = (f y)) => Eq.symm hxy)
+        (fun (x : α) (y : α) (z : α) (hxy : (f x) = (f y))
+            (hyz : (f y) = (f z)) => Eq.trans hxy hyz)
 
 /- Part 2: Generalized Algebraic Data Types (GADTs). -/
 
@@ -74,11 +75,15 @@ inductive SumProd (α β γ : Type) where
 
 /-- Define a function from `SumProd α β γ` to `Sum α (Prod β γ)`. -/
 noncomputable def forward {α β γ : Type} : SumProd α β γ → Sum α (Prod β γ) :=
-    sorry
+    fun p => match p with
+    | SumProd.cons1 a => Sum.inl a
+    | SumProd.cons2 b c => Sum.inr (b, c)
 
 /-- Define a function from `Sum α (Prod β γ)` to `SumProd α β γ`. -/
 noncomputable def backward {α β γ : Type} : Sum α (Prod β γ) → SumProd α β γ :=
-    sorry
+    fun p => match p with
+    | Sum.inl a => SumProd.cons1 a
+    | Sum.inr (b, c) => SumProd.cons2 b c
 
 /-
 Because of these relatively natural functions `forward` and `backward`,
@@ -95,14 +100,19 @@ inductive N
   | succ (n : N) : N
 
 /-- Multiply an `N` by two. -/
-def N.mul_two : N → N := sorry
+def N.mul_two : N → N := fun n => match n with
+| zero => n
+| succ p => succ (succ (mul_two p))
 
 #reduce N.mul_two (N.zero) -- N.zero
 #reduce N.mul_two (N.zero).succ -- N.zero.succ.succ
 #reduce N.mul_two (N.zero).succ.succ -- N.zero.succ.succ.succ.succ
 
 /-- Divide an `N` by two, rounding down if necessary. -/
-def N.div_two : N → N := sorry
+def N.div_two : N → N := fun n => match n with
+| zero => zero
+| succ zero => zero
+| succ (succ p) => (succ (div_two p))
 
 #reduce N.div_two (N.zero) -- N.zero
 #reduce N.div_two (N.zero).succ -- N.zero
