@@ -59,3 +59,35 @@ Arrow is right-associative to allow for currying.
 
 Types are themselves instances of type `Type`, which is an instance of `Type 1`,
 which is an instance of `Type 2`... These are known as universes.
+
+## Session 5
+
+Parallels between types and logical connectives (Curry-Howard Correspondence):
+
+- `a → b` (functions) are implications
+- `a × b` (products) are AND
+- `a ⊕ b` (sum types) are OR
+- `1` (type with single no-argument constructor, only one possible value) are True
+- `∅` (type with no constructors) are False
+
+
+## Session 6
+
+Tactics: must close all goals.
+
+- `by`: enter tactic mode
+- `exact`: enter term mode
+- `show / by`: specify expression type
+- `have`: give a name to a type ("lemma")
+- `refine`: create goals with `?_`
+- `intro`: introduce a hypothesis
+- `rintro`: destructure cases
+- `apply`: like refine -- produces goals for each argument which it can't infer
+- `cases/cases'`: only works on propositions: split goals
+- `left`: `apply ?.inl`
+- `right`: `apply ?.inr`
+- `constructor`: tries to match a constructor
+- `all_goals`: applies to all goals
+- `any_goals`: applies to all goals that work
+- `clear/clear */clear * - a`: forget about objects to declutter view
+- `rw`: rewrite

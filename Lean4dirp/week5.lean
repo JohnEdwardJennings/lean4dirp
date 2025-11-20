@@ -26,17 +26,32 @@ inductive N
 
 namespace N
 
+def add (a b : N) : N := match b with
+| zero => a
+| succ x => add (succ a) x -- succ (add a x)
+
+axiom add_zero (n : N) : (add n zero) = n
+
 /- The following exercise shows one possible `Monoid` instance on natural numbers.
 There are others (for example, multiplication).
 Feel free to define as many helper functions/proofs before the instance as you want. -/
 
+#eval add zero zero
+#eval add zero (succ zero)
+#eval add (succ zero) zero
+#eval add (succ (succ zero)) (succ zero)
+
 /-- The natural numbers form a monoid under addition. -/
 instance : Monoid N where
-  op := sorry
-  id := sorry
-  lid := sorry
-  rid := sorry
-  assoc := sorry
+  op := add
+  id := zero
+  lid := fun (x : N) => match x with
+    | zero => rfl
+    |    y => sorry
+  rid := fun (x : N) => rfl -- since zero -> a
+  assoc := fun (x y : N) => fun x y => match y with
+    | zero => rfl
+    | succ z' => _
 
 end N
 
